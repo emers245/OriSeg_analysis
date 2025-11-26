@@ -1,0 +1,132 @@
+=== Copy behavior txt run on Mon Nov  3 03:38:36 PM CST 2025 ===
+
+mkdir -p /home/scat-raid3/data/oriSeg_redo/behavior/pnr102
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr102/dicom/behavior/pnrXXX_20221014_1741_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr102/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr102/dicom/behavior/pnrXXX_20221014_1750_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr102/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr102/dicom/behavior/pnrXXX_20221014_1727_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr102/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr102/dicom/behavior/pnrXXX_20221014_1736_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr102/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr102/dicom/behavior/pnrXXX_20221014_1717_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr102/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr102/dicom/behavior/pnrXXX_20221014_1800_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr102/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr102/dicom/behavior/pnrXXX_20221014_1711_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr102/
+mkdir -p /home/scat-raid3/data/oriSeg_redo/behavior/pnr143
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr143/dicom/behavior/pnr143_20240321_1713_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr143/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr143/dicom/behavior/pnr143_20240321_1727_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr143/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr143/dicom/behavior/pnr143_20240321_1812_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr143/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr143/dicom/behavior/pnr143_20240321_1718_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr143/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr143/dicom/behavior/pnr143_20240321_1752_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr143/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr143/dicom/behavior/pnr143_20240321_1747_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr143/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr143/dicom/behavior/pnr143_20240321_1822_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr143/
+mkdir -p /home/scat-raid3/data/oriSeg_redo/behavior/pnr161
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr161/dicom/behavior/pnr161_20240229_1603_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr161/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr161/dicom/behavior/pnr161_20240229_1646_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr161/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr161/dicom/behavior/pnr161_20240229_1627_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr161/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr161/dicom/behavior/pnr161_20240229_1554_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr161/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr161/dicom/behavior/pnr161_20240229_1637_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr161/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr161/dicom/behavior/pnr161_20240229_1550_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr161/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr161/dicom/behavior/pnr161_20240229_1623_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr161/
+mkdir -p /home/scat-raid3/data/oriSeg_redo/behavior/pnr256
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr256/dicom/behavior/pnr256_20220629_1522_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr256/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr256/dicom/behavior/pnr256_20220629_1425_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr256/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr256/dicom/behavior/pnr256_20220629_1513_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr256/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr256/dicom/behavior/pnr256_20220629_1407_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr256/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr256/dicom/behavior/pnr256_20220629_1435_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr256/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr256/dicom/behavior/pnr256_20220629_1415_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr256/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr256/dicom/behavior/pnr256_20220629_1504_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr256/
+mkdir -p /home/scat-raid3/data/oriSeg_redo/behavior/pnr328
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr328/dicom/behavior/pnr328_20220527_1216_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr328/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr328/dicom/behavior/pnr328_20220527_1133_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr328/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr328/dicom/behavior/pnr328_20220527_1128_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr328/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr328/dicom/behavior/pnr328_20220527_1143_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr328/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr328/dicom/behavior/pnr328_20220527_1157_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr328/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr328/dicom/behavior/pnr328_20220527_1206_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr328/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr328/dicom/behavior/pnr328_20220527_1152_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr328/
+mkdir -p /home/scat-raid3/data/oriSeg_redo/behavior/pnr352
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr352/dicom/behavior/pnr352_20240228_1647_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr352/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr352/dicom/behavior/pnr352_20240228_1729_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr352/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr352/dicom/behavior/pnr352_20240228_1706_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr352/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr352/dicom/behavior/pnr352_20240228_1638_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr352/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr352/dicom/behavior/pnr352_20240228_1720_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr352/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr352/dicom/behavior/pnr352_20240228_1633_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr352/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr352/dicom/behavior/pnr352_20240228_1711_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr352/
+mkdir -p /home/scat-raid3/data/oriSeg_redo/behavior/pnr495
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr495/dicom/behavior/pnr495_20240322_1629_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr495/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr495/dicom/behavior/pnr495_20240322_1704_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr495/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr495/dicom/behavior/pnr495_20240322_1658_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr495/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr495/dicom/behavior/pnr495_20240322_1713_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr495/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr495/dicom/behavior/pnr495_20240322_1624_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr495/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr495/dicom/behavior/pnr495_20240322_1722_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr495/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr495/dicom/behavior/pnr495_20240322_1639_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr495/
+mkdir -p /home/scat-raid3/data/oriSeg_redo/behavior/pnr510
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr510/dicom/behavior/pnr510_20220628_0959_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr510/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr510/dicom/behavior/pnr510_20220628_1008_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr510/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr510/dicom/behavior/pnr510_20220628_1044_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr510/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr510/dicom/behavior/pnr510_20220628_0949_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr510/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr510/dicom/behavior/pnr510_20220628_1034_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr510/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr510/dicom/behavior/pnr510_20220628_1025_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr510/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr510/dicom/behavior/pnr510_20220628_0944_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr510/
+mkdir -p /home/scat-raid3/data/oriSeg_redo/behavior/pnr579
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr579/dicom/behavior/pnr579_20240229_1824_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr579/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr579/dicom/behavior/pnr579_20240229_1725_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr579/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr579/dicom/behavior/pnr579_20240229_1740_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr579/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr579/dicom/behavior/pnr579_20240229_1800_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr579/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr579/dicom/behavior/pnr579_20240229_1730_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr579/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr579/dicom/behavior/pnr579_20240229_1814_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr579/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr579/dicom/behavior/pnr579_20240229_1804_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr579/
+mkdir -p /home/scat-raid3/data/oriSeg_redo/behavior/pnr668
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr668/dicom/behavior/pnr668_20240312_1704_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr668/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr668/dicom/behavior/pnr668_20240312_1801_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr668/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr668/dicom/behavior/pnr668_20240312_1719_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr668/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr668/dicom/behavior/pnr668_20240312_1752_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr668/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr668/dicom/behavior/pnr668_20240312_1743_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr668/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr668/dicom/behavior/pnr668_20240312_1738_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr668/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr668/dicom/behavior/pnr668_20240312_1709_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr668/
+mkdir -p /home/scat-raid3/data/oriSeg_redo/behavior/pnr685
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr685/dicom/behavior/pnr685_20240301_1644_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr685/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr685/dicom/behavior/pnr685_20240301_1640_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr685/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr685/dicom/behavior/pnr685_20240301_1653_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr685/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr685/dicom/behavior/pnr685_20240301_1620_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr685/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr685/dicom/behavior/pnr685_20240301_1607_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr685/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr685/dicom/behavior/pnr685_20240301_1702_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr685/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr685/dicom/behavior/pnr685_20240301_1611_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr685/
+mkdir -p /home/scat-raid3/data/oriSeg_redo/behavior/pnr713
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr713/dicom/behavior/pnr713_20240325_1345_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr713/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr713/dicom/behavior/pnr713_20240325_1418_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr713/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr713/dicom/behavior/pnr713_20240325_1413_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr713/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr713/dicom/behavior/pnr713_20240325_1427_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr713/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr713/dicom/behavior/pnr713_20240325_1341_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr713/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr713/dicom/behavior/pnr713_20240325_1436_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr713/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr713/dicom/behavior/pnr713_20240325_1354_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr713/
+mkdir -p /home/scat-raid3/data/oriSeg_redo/behavior/pnr739
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr739/dicom/behavior/pnr739_20220926_1034_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr739/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr739/dicom/behavior/pnr739_20220926_1058_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr739/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr739/dicom/behavior/pnr739_20220926_1024_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr739/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr739/dicom/behavior/pnr739_20220926_1008_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr739/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr739/dicom/behavior/pnr739_20220926_1048_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr739/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr739/dicom/behavior/pnr739_20220926_1038_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr739/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr739/dicom/behavior/pnr739_20220926_1014_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr739/
+mkdir -p /home/scat-raid3/data/oriSeg_redo/behavior/pnr756
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr756/dicom/behavior/pnr756_20220627_1001_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr756/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr756/dicom/behavior/pnr756_20220627_1050_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr756/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr756/dicom/behavior/pnr756_20220627_1016_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr756/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr756/dicom/behavior/pnr756_20220627_1026_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr756/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr756/dicom/behavior/pnr756_20220627_1040_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr756/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr756/dicom/behavior/pnr756_20220627_1007_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr756/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr756/dicom/behavior/pnr756_20220627_1031_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr756/
+mkdir -p /home/scat-raid3/data/oriSeg_redo/behavior/pnr822
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr822/dicom/behavior/pnrXXX_20240315_1738_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr822/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr822/dicom/behavior/pnrXXX_20240315_1654_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr822/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr822/dicom/behavior/pnrXXX_20240315_1724_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr822/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr822/dicom/behavior/pnrXXX_20240315_1649_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr822/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr822/dicom/behavior/pnrXXX_20240315_1704_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr822/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr822/dicom/behavior/pnrXXX_20240315_1728_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr822/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr822/dicom/behavior/pnrXXX_20240315_1748_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr822/
+mkdir -p /home/scat-raid3/data/oriSeg_redo/behavior/pnr947
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr947/dicom/behavior/psy5993d_20240227_1800_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr947/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr947/dicom/behavior/psy5993d_20240227_1712_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr947/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr947/dicom/behavior/psy5993d_20240227_1810_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr947/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr947/dicom/behavior/psy5993d_20240227_1716_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr947/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr947/dicom/behavior/psy5993d_20240227_1751_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr947/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr947/dicom/behavior/psy5993d_20240227_1746_oriSeg_localizer_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr947/
+cp -n /home/scat-raid3/data/oriSeg_redo/pnr947/dicom/behavior/psy5993d_20240227_1726_oriSeg_task_v1.3.txt /home/scat-raid3/data/oriSeg_redo/behavior/pnr947/
+
+=== Script completed at Mon Nov  3 03:38:37 PM CST 2025 ===

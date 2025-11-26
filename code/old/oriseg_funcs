@@ -1,0 +1,182 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Feb 27 09:48:06 2023
+
+@author: joe
+
+OriSeg Functions: This code holds all the functions used for doing analysis 
+and making plots related to the OriSeg dataset on context modulation.
+"""
+
+#import nibabel
+import os, glob
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy.stats as stats
+import json
+
+def makeProfile1D(depthData, nDepths, paramData):
+    '''
+    Makes depth profile with given depth boundaries.
+    
+    Inputs:
+        depthData (array): depth values for each voxel in ROI
+        nDepths (int): number of depth bins to use
+        paramData (array): the measurement you want to return grouped by depth
+        
+    Outputs:
+        dataDict (dict): a dictionary of statistics computed for the profile 
+            and over the whole ROI
+        
+    Dependencies:
+        numpy
+    '''
+    # set up the depths
+    depthMax = 20.       # we might not want to take the pial surface
+    binSize = depthMax/nDepths
+    print('depth bin size: %d' %binSize)
+    depthBoundaries = 0.5 + np.arange(0., depthMax + 1., binSize) 
+    # mask the depth data using the ROI
+    try:
+        nParams = paramData.shape[1]
+    except:
+        nParams = 1
+        paramData = np.reshape(paramData, (len(paramData), 1))
+    dataDict = {'whole ROI': {}, 'profile': {}}
+    dataDict['whole ROI']['nVox'] = len(depthData)
+    dataDict['whole ROI']['avg'] = np.mean(paramData, axis=0)
+    dataDict['profile']['depth'] = [0 for iD in range(len(depthBoundaries) - 1)]
+    dataDict['profile']['nVox'] = [0 for iD in range(len(depthBoundaries) - 1)]
+    dataDict['profile']['avg'] = [[0 for iD in range(len(depthBoundaries) - 1)] for iP in range(nParams)]
+    dataDict['profile']['param'] = [[0 for iD in range(len(depthBoundaries) - 1)] for iP in range(nParams)]
+    dataDict['profile']['std'] = [[0 for iD in range(len(depthBoundaries) - 1)] for iP in range(nParams)]
+    for iP in range(nParams):
+        for iD in range(len(depthBoundaries) - 1):
+            mask = 1.*(depthData > depthBoundaries[iD])*(depthData <= depthBoundaries[iD + 1])
+            dataDict['profile']['depth'][iD] = np.mean(depthData[mask > 0.])
+            dataDict['profile']['nVox'][iD] = np.sum(mask)
+            dataDict['profile']['param'][iP][iD] = paramData[:, iP][mask > 0.]
+            dataDict['profile']['avg'][iP][iD] = np.mean(paramData[:, iP][mask > 0.])
+            dataDict['profile']['std'][iP][iD] = np.std(paramData[:, iP][mask > 0.])
+    return dataDict
+
+def smooth_kernel(x, k, xloc):
+    ''' copied from Joe's analysisROI_dev and changed name of last variable
+    to help guide my own interpretation, and changed it so
+    kernel normalization happens in here to shorten call in smoothen
+    
+    Inputs:
+        x (array): coordinates
+        k (float): smoothing factor (-1/k is exponent for kernel)
+        xloc (array): coordinates to center kernel
+    
+    Outputs:
+        kernel (array): normalized exponential kernel
+        
+    Dependencies:
+        numpy
+    '''
+    kernel = np.exp(-(1/k)*np.abs(x-xloc))
+    return kernel/np.sum(kernel)
+
+def smoothen(data, x, radMax=4, nRadii=50, kernel=smooth_kernel, smooth_factor=.3):
+    ''' copied from Joe's analysisROI_dev; reduced input args
+    data: 1D vector of data. doesn't need to be sorted!
+    smooth_factor is the exponential decay constant of the smoothing kernel
+    
+    Inputs:
+        data (array): vector of data
+        x (array): coordinate vector whose elements correspond to data
+        radMax (float): max radius to smooth in the same units the data are in
+            DEFAULT - 4
+        nRadii (int): number of evenly spaced points to resample to
+            DEFAULT - 50
+        kernel (func): a kernel function for smoothing
+            DEFUALT - smooth_kernel (exponential kernel)
+        smooth_factor (float): a parameter used in the kernel that changes the 
+            width of the kernel function
+            DEFAULT - 0.3
+    Outputs:
+        data_smooth (array): smoothed data resampled to new size
+        x_smooth (array): resampled coordinates corresponding to data_smooth
+        
+    Dependencies:
+        numpy
+    '''
+    data_smooth = np.zeros((nRadii,))
+    x_smooth = np.linspace(0, radMax, nRadii)
+    for iR, rad in enumerate(x_smooth):
+        data_smooth[iR] = np.sum(data*kernel(x, smooth_factor, rad)) 
+    return data_smooth, x_smooth
+
+def fix_axes(ax, lcolor='black', fcolor='white'):
+    '''
+    Formatting for plot axes used in depth profiles
+    
+    Inputs:
+        ax (matplotlib.pyplot handle): axis handle
+        lcolor (string): color of lines
+            DEFAULT - 'black'
+        fcolor (strong): color of background
+            DEFAULT - 'white'
+            
+    Outputs:
+        None
+        
+    Dependencies:
+        matplotlib
+    '''
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.xaxis.set_ticks_position('bottom')
+    ax.yaxis.set_ticks_position('left')
+    ax.spines['left'].set_position(('outward', 8))
+    ax.spines['left'].set_color(lcolor)
+    ax.spines['bottom'].set_position(('outward', 8))
+    ax.spines['bottom'].set_color(lcolor)
+    ax.tick_params(axis='x', colors=lcolor)
+    ax.tick_params(axis='y', colors=lcolor)
+    ax.patch.set_facecolor(fcolor)
+    
+def smooth_kernel2D(x,y,k,tx,ty):
+    '''
+    A 2D exponential kernel
+    
+    Inputs:
+        x (array): x-coordinates
+        y (array): y-coordinates
+        k (float): smoothing factor (-1/k is exponent for kernel)
+        tx (array): x-coordinates for kernel center
+        ty (array): y-coordinates for kernel center
+        
+    Outputs:
+        kernel (array): 2D normalized exponential kernel
+        
+    Dependencies:
+        numpy
+    '''
+    return np.exp(-(1/k)*np.abs(np.sqrt((x-tx)**2+(y-ty)**2)))
+
+def smoothen2D(data,xy,xy_resamp,kernel,smooth_factor):
+    '''
+    A 2D smoothing function
+    
+    Inputs:
+        data (array): vector of data
+        xy (array): vector of xy coordinates corresponding to each element in 
+            data
+        xy_resamp (array): vector of xy coordinates to resample to
+        kernel (func): kernel function for smoothing
+        smooth_factor (float): parameter for kernel function that controls 
+            width of kernel 
+        
+    Outputs:
+        data_smooth (array): smoothed data resampled to new coordinates
+
+    '''
+    data_smooth = np.zeros([np.shape(xy_resamp)[1],np.shape(xy_resamp)[1]])
+    for xi in range(np.shape(xy_resamp)[1]):
+        for yi in range(np.shape(xy_resamp)[1]):
+            data_smooth[xi,yi] = np.sum(data*kernel(xy[0],xy[1],smooth_factor,xy_resamp[0][xi],xy_resamp[1][yi]))/np.sum(kernel(xy[0],xy[1],smooth_factor,xy_resamp[0][xi],xy_resamp[1][yi]))
+    return data_smooth

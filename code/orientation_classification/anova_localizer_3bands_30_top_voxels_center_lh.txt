@@ -1,0 +1,5 @@
+                   Df Sum Sq  Mean Sq F value Pr(>F)
+depth               2 0.0373 0.018651   0.877  0.419
+radius_band         2 0.0029 0.001447   0.068  0.934
+depth:radius_band   4 0.0011 0.000280   0.013  1.000
+Residuals         108 2.2956 0.021255               
