@@ -52,3 +52,9 @@ Contains code for running the orientation decoding analysis contained in the sup
 ### figs/
 
 All plots used in generating figures, including additional plots used for quality control.
+
+### data/
+
+**behavior/** - trial-wise behavioral data organized by subject and scan organized in CSV format
+
+**roi_data/** - voxel-wise preprocessed BOLD fMRI data from extracted ROIs organized by ROI location and subject
