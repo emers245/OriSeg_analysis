@@ -857,143 +857,92 @@ def get_mnv_mask(df, depth_var, deep_pct, sd_thresh):
     lmnv_thresh = deep_mean + sd_thresh * deep_std
     return lmnv < lmnv_thresh, lmnv_thresh
 
-def plot_mnv_histograms(lmnv, deep_lmnv, mnv_mask, deep_pct, key, k_i, NROIs, fsize, pad=0.1, figsize=(6.5,6.5), fname="thresh"):
+def plot_mnv_histograms(lmnv, deep_lmnv, mnv_mask, deep_pct, key, ax1, ax2, fsize):
     """
-    Plots histograms for a given dataframe.
+    Draw MNV histograms for one ROI into pre-created axes.
+
+    ax1 : full-distribution + deep-layer overlay
+    ax2 : post-mask distribution
     """
-    fthresh = plt.figure(fname,figsize=figsize)
-    
-    # Plot on even-numbered rows
-    rows = 2 * int(np.ceil(np.sqrt(NROIs)))  # Double the number of rows
-    cols = int(np.ceil(np.sqrt(NROIs)))
-    
-    # Adjust k_i to plot on even rows (0, 2, 4,...)
-    index = 2 * cols * (k_i // cols) + (k_i % cols) + 1
-    plt.subplot(cols,rows,index)
-    #plt.subplot(2, NROIs, (k_i + 1))
-    plt.hist(lmnv, bins=np.linspace(0, 10, 200), density=True, alpha=0.5)
-    plt.hist(deep_lmnv, bins=np.linspace(0, 10, 200), density=True, alpha=0.5)
-    plt.xlabel("log(MNV)", fontsize=0.7 * fsize)
-    plt.ylabel("Density (voxels/bin len)", fontsize=0.7 * fsize)
-    plt.legend(['full', 'deepest %d%%' % (deep_pct)], fontsize=0.7 * fsize)
-    plt.xticks(fontsize=0.5 * fsize)
-    plt.yticks(fontsize=0.5 * fsize)
-    plt.title(key, fontsize=fsize)
-    
-    # Plot on odd-numbered rows (1, 3, 5, ...)
-    index += cols
-    plt.subplot(cols,rows,index)
-    #plt.subplot(2, NROIs, (k_i + 1) + NROIs)
-    plt.hist(lmnv[mnv_mask], bins=np.linspace(0, 10, 200), density=True, alpha=0.5)
-    plt.xlabel("log(MNV)", fontsize=0.7 * fsize)
-    plt.ylabel("Density (voxels/bin len)", fontsize=0.7 * fsize)
-    plt.legend(['masked'], fontsize=0.7 * fsize)
-    plt.xticks(fontsize=0.5 * fsize)
-    plt.yticks(fontsize=0.5 * fsize)
-    plt.title(key, fontsize=fsize)
-    
-    #fthresh.tight_layout(pad=pad)
-    return(fthresh)
+    ax1.hist(lmnv, bins=np.linspace(0, 10, 200), density=True, alpha=0.5)
+    ax1.hist(deep_lmnv, bins=np.linspace(0, 10, 200), density=True, alpha=0.5)
+    ax1.set_xlabel("log(MNV)", fontsize=0.7 * fsize)
+    ax1.set_ylabel("Density (voxels/bin len)", fontsize=0.7 * fsize)
+    ax1.legend(['full', 'deepest %d%%' % deep_pct], fontsize=0.7 * fsize)
+    ax1.tick_params(labelsize=0.5 * fsize)
+    ax1.set_title(key, fontsize=fsize)
+
+    ax2.hist(lmnv[mnv_mask], bins=np.linspace(0, 10, 200), density=True, alpha=0.5)
+    ax2.set_xlabel("log(MNV)", fontsize=0.7 * fsize)
+    ax2.set_ylabel("Density (voxels/bin len)", fontsize=0.7 * fsize)
+    ax2.legend(['masked'], fontsize=0.7 * fsize)
+    ax2.tick_params(labelsize=0.5 * fsize)
+    ax2.set_title(key, fontsize=fsize)
 
 
-def plot_depth_maps(df, depth_var, depth_groups, depth_labels, x_var, y_var, mnv, k_i, NROIs, vlim, fsize, fname='dmap', mask=None, pad=0.1, figsize=(6.5,6.5)):
+def plot_depth_maps(df, depth_var, depth_groups, depth_labels, x_var, y_var,
+                    mnv, vlim, fsize, axes_scatter, axes_hist, mask=None):
     """
-    Plots depth maps for a given dataframe.
+    Draw depth-layer scatter maps and MNV histograms for one ROI into pre-created axes.
+
+    axes_scatter : list of Axes, one per depth layer (scatter plot)
+    axes_hist    : list of Axes, one per depth layer (log-MNV histogram)
     """
-    if isinstance(mask, np.ndarray) or isinstance(mask, list):
+    if isinstance(mask, (np.ndarray, list)):
         mnv_mask = mask
     else:
-        mnv_mask = np.ones(np.shape(mnv),dtype=bool)
+        mnv_mask = np.ones(np.shape(mnv), dtype=bool)
     x = df[x_var]
     y = df[y_var]
-    Ngroups = len(depth_groups.keys())
-    fdepth = plt.figure(fname, figsize=figsize)
     for d_i, depth_label in enumerate(depth_labels):
-        level_mask = (df[depth_var] >= depth_groups[depth_label][0]) & (df[depth_var] <= depth_groups[depth_label][1])
-        plt.subplot(Ngroups*2, NROIs, (k_i+1)+2*d_i*NROIs)
-        plt.scatter(x[level_mask*mnv_mask], y[level_mask*mnv_mask], s=0.5, c=np.log(mnv[level_mask*mnv_mask]), cmap='Reds', vmin=vlim[0], vmax=vlim[1])
-        if k_i == NROIs-1:
-            plt.colorbar(label='log(MNV)')
-        plt.title(f"{depth_label}", fontsize=fsize)
-        plt.xlabel('U', fontsize=0.7*fsize)
-        plt.ylabel('V', fontsize=0.7*fsize)
-        plt.tick_params(
-            axis='both',          # changes apply to the x-axis
-            bottom=False,      # ticks along the bottom edge are off
-            top=False,         # ticks along the top edge are off
-            left=False,        # ticks along left side are off
-            right=False,     #ticks along right side are off
-            labelbottom=False,      # tick labels along the bottom edge are off
-            labeltop=False,         # tick labels along the top edge are off
-            labelleft=False,        # tick labels along left side are off
-            labelright=False)       #tick labels along right side are off
-        # plt.xticks(fontsize=0.5*fsize)
-        # plt.yticks(fontsize=0.5*fsize)
-        plt.gca().set_aspect('equal')
-        plt.show()
-        
-        #plot hist
-        plt.subplot(Ngroups*4,NROIs,(k_i+1)+(2*NROIs)+(4*d_i*NROIs))
-        plt.hist(np.log(mnv[level_mask*mnv_mask]),bins=np.linspace(2,5,100))
-        plt.xticks(ticks = None, labels = None, fontsize=0.5*fsize)
-        plt.yticks(ticks = None, labels = None, fontsize=0.5*fsize)
-        plt.xlabel("log(MNV)",fontsize=0.7*fsize)
-    
-    #fdepth.tight_layout(pad=pad)
-    return(fdepth)
+        level_mask = ((df[depth_var] >= depth_groups[depth_label][0]) &
+                      (df[depth_var] <= depth_groups[depth_label][1]))
+        combined = level_mask & mnv_mask
 
-def plot_depth_voxel_loss(z, mnv_mask, nDepths, NROIs, key, k_i, fsize, pad=0.1, figsize=(15,3), fname = "depth"):
-    """
-    Plots voxel loss at each depth after masking.
-    
-    Parameters:
-    z (numpy.ndarray): array of depths.
-    mnv_mask (numpy.ndarray): binary mask indicating voxels to include.
-    nDepths (int): number of depth bins.
-    key (str): title for the plot.
-    k_i (int): subplot index.
-    fsize (int): font size for plot labels.
-    """
-    
-    frac_included = np.zeros((int(nDepths),))
-    depthBoundaries = np.linspace(np.min(z),np.max(z),nDepths)
+        ax_s = axes_scatter[d_i]
+        sc = ax_s.scatter(x[combined], y[combined], s=0.5,
+                          c=np.log(mnv[combined]), cmap='Reds',
+                          vmin=vlim[0], vmax=vlim[1])
+        ax_s.set_title(depth_label, fontsize=fsize)
+        ax_s.set_aspect('equal')
+        ax_s.tick_params(bottom=False, left=False,
+                         labelbottom=False, labelleft=False)
 
-    dmasked = z[mnv_mask]
-    bin_count = np.bincount(np.digitize(z,depthBoundaries,right=True))
-    bin_count_masked = np.bincount(np.digitize(dmasked,depthBoundaries,right=True))
-    frac_included = bin_count_masked/bin_count
-    
-    fdepth_hist = plt.figure(fname,figsize=figsize)
-    
-    # Plot on even-numbered rows
-    rows = 2 * int(np.ceil(np.sqrt(NROIs)))  # Double the number of rows
-    cols = int(np.ceil(np.sqrt(NROIs)))
-    
-    # Adjust k_i to plot on even rows (0, 2, 4,...)
-    index = 2 * cols * (k_i // cols) + (k_i % cols) + 1
-    plt.subplot(cols,rows,index)
-    plt.hist(z,bins=np.linspace(np.min(z),np.max(z),nDepths+1))
-    plt.title(key+"\n Depth Hist",fontsize=fsize)
-    plt.xticks(ticks = None, labels = None, fontsize=0.5*fsize)
-    plt.xlim([0,1])
-    plt.ylim([0,1.3*np.max(bin_count)])
-    plt.yticks(ticks = None, labels = None, fontsize=0.5*fsize)
-    plt.hist(z[mnv_mask],bins=np.linspace(np.min(z),np.max(z),nDepths+1),alpha=0.7)
-    plt.legend(["unmasked","masked"],fontsize=0.7*fsize)
-    
-    # Plot on odd-numbered rows (1, 3, 5, ...)
-    index += cols
-    plt.subplot(cols,rows,index)
-    plt.bar(np.linspace(np.min(z)+np.max(z)/(2*nDepths),np.max(z)-np.max(z)/(2*nDepths),nDepths),frac_included,width=np.max(z)/nDepths,color='tomato')
-    plt.xticks(ticks = None, labels = None, fontsize=0.5*fsize)
-    plt.yticks(ticks = None, labels = None, fontsize=0.5*fsize)
-    plt.xlabel("Depth (WM --> Pia)",fontsize=0.7*fsize)
-    plt.xlim([0,1])
-    plt.ylim([0,1])
-    plt.ylabel("Frac Included",fontsize=0.7*fsize)
-    
-    fdepth_hist.tight_layout(pad=pad)
-    return(fdepth_hist)
+        ax_h = axes_hist[d_i]
+        ax_h.hist(np.log(mnv[combined]), bins=np.linspace(2, 5, 100))
+        ax_h.tick_params(labelsize=0.5 * fsize)
+        ax_h.set_xlabel("log(MNV)", fontsize=0.7 * fsize)
+
+def plot_depth_voxel_loss(z, mnv_mask, nDepths, key, ax_hist, ax_bar, fsize):
+    """
+    Draw depth histogram and fraction-included bar chart for one ROI into pre-created axes.
+
+    ax_hist : overlaid unmasked/masked depth histograms
+    ax_bar  : fraction of voxels surviving the MNV mask at each depth bin
+    """
+    depthBoundaries = np.linspace(np.min(z), np.max(z), nDepths)
+    dmasked         = z[mnv_mask]
+    bin_count        = np.bincount(np.digitize(z,       depthBoundaries, right=True))
+    bin_count_masked = np.bincount(np.digitize(dmasked, depthBoundaries, right=True))
+    frac_included    = bin_count_masked / bin_count
+
+    bins = np.linspace(np.min(z), np.max(z), nDepths + 1)
+    ax_hist.hist(z,           bins=bins)
+    ax_hist.hist(z[mnv_mask], bins=bins, alpha=0.7)
+    ax_hist.set_title(key + "\nDepth Hist", fontsize=fsize)
+    ax_hist.set_xlim([0, 1])
+    ax_hist.set_ylim([0, 1.3 * np.max(bin_count)])
+    ax_hist.legend(["unmasked", "masked"], fontsize=0.7 * fsize)
+    ax_hist.tick_params(labelsize=0.5 * fsize)
+
+    bar_ctrs = np.linspace(np.min(z) + np.max(z) / (2 * nDepths),
+                           np.max(z) - np.max(z) / (2 * nDepths), nDepths)
+    ax_bar.bar(bar_ctrs, frac_included, width=np.max(z) / nDepths, color='tomato')
+    ax_bar.set_xlabel("Depth (WM → Pia)", fontsize=0.7 * fsize)
+    ax_bar.set_ylabel("Frac Included",         fontsize=0.7 * fsize)
+    ax_bar.set_xlim([0, 1])
+    ax_bar.set_ylim([0, 1])
+    ax_bar.tick_params(labelsize=0.5 * fsize)
 
 def plot_centroids(all_data, mask_dict, statDetails, roiRad=2, nDepths=10, pad=0.0, figsize=(6.5,6.5), xlim=[-5,30], radParam = "scale_xy_dist"):
     for iStat in range(len(statDetails['labels'])):

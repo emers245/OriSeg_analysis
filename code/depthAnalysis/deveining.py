@@ -56,7 +56,7 @@ def save_dropout_statistics_to_csv(vArea, subjIDs, hemi, dropout, voxels_before,
     print(f"Saved dropout statistics to {filepath}")
 
 
-def devein_voxels(all_data, depth_var='d_norm', deep_pct=10, sd_thresh=2, out_dir=None):
+def devein_voxels(all_data, depth_var='d_norm', deep_pct=10, sd_thresh=2, out_dir=None, vAreas = ['V1']):
     """
     Normalizes cortical depth to 'd_norm', applies vein exclusion based on
     mean-normalized variance (MNV), and stores the boolean mask as 'no_vein'
@@ -91,7 +91,7 @@ def devein_voxels(all_data, depth_var='d_norm', deep_pct=10, sd_thresh=2, out_di
     lmnv_dict = {key: {'mean': 0, 'std': 0, 'thresh': 0, 'deep_mean': 0, 'deep_std': 0}
                  for key in all_data.keys()}
 
-    for iR, vArea in enumerate(['V1', 'V23']):
+    for iR, vArea in enumerate(vAreas):
         k_i = 0
         subjIDs = [subj for subj in all_data.keys()
                    if all_data[subj]['Visual Region'].str.contains(vArea).any()]

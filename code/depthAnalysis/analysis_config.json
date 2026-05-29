@@ -2,27 +2,11 @@
     "statDetails": {
         "labels": [
             "sur", "iso90", "orth", "iso0",
-            "ctr_unwarp", "sur_unwarp", "ctr-sur_unwarp", "iso0_loc",
-            "V23_superficial_deveined_orth", "V23_middle_deveined_orth", "V23_deep_deveined_orth",
-            "V23_superficial_deveined_iso90", "V23_middle_deveined_iso90", "V23_deep_deveined_iso90",
-            "V23_superficial_deveined_iso0", "V23_middle_deveined_iso0", "V23_deep_deveined_iso0",
-            "V23_superficial_deveined_sur", "V23_middle_deveined_sur", "V23_deep_deveined_sur",
-            "V1_tgt_superficial_deveined_orth", "V1_tgt_middle_deveined_orth", "V1_tgt_deep_deveined_orth",
-            "V1_tgt_superficial_deveined_iso90", "V1_tgt_middle_deveined_iso90", "V1_tgt_deep_deveined_iso90",
-            "V1_tgt_superficial_deveined_iso0", "V1_tgt_middle_deveined_iso0", "V1_tgt_deep_deveined_iso0",
-            "V1_tgt_superficial_deveined_sur", "V1_tgt_middle_deveined_sur", "V1_tgt_deep_deveined_sur"
+            "ctr_unwarp", "sur_unwarp", "ctr-sur_unwarp", "iso0_loc"
         ],
         "colors": [
             [0.7, 0.7, 0.7], "darkviolet", "orange", "red",
-            "gold", "purple", "coral", "red",
-            "orange", "orange", "orange",
-            "darkviolet", "darkviolet", "darkviolet",
-            "red", "red", "red",
-            "gray", "gray", "gray",
-            "orange", "orange", "orange",
-            "darkviolet", "darkviolet", "darkviolet",
-            "red", "red", "red",
-            "gray", "gray", "gray"
+            "gold", "purple", "coral", "red"
         ]
     },
     "diffDetails": {
@@ -34,54 +18,18 @@
             "ctr-sur": ["ctr_unwarp", "sur_unwarp"],
             "ctr-iso0": ["ctr_unwarp", "iso0_loc"],
             "iso90-sur": ["iso90", "sur"],
-            "orth-sur": ["orth", "sur"],
-            "odss_gPPI_superficial_V23": ["V23_superficial_deveined_orth", "V23_superficial_deveined_iso90"],
-            "odss_gPPI_middle_V23": ["V23_middle_deveined_orth", "V23_middle_deveined_iso90"],
-            "odss_gPPI_deep_V23": ["V23_deep_deveined_orth", "V23_deep_deveined_iso90"],
-            "fgm_gPPI_superficial_V23": ["V23_superficial_deveined_iso90", "V23_superficial_deveined_iso0"],
-            "fgm_gPPI_middle_V23": ["V23_middle_deveined_iso90", "V23_middle_deveined_iso0"],
-            "fgm_gPPI_deep_V23": ["V23_deep_deveined_iso90", "V23_deep_deveined_iso0"],
-            "iso-sur_gPPI_superficial_V23": ["V23_superficial_deveined_iso0", "V23_superficial_deveined_sur"],
-            "iso-sur_gPPI_middle_V23": ["V23_middle_deveined_iso0", "V23_middle_deveined_sur"],
-            "iso-sur_gPPI_deep_V23": ["V23_deep_deveined_iso0", "V23_deep_deveined_sur"],
-            "odss_gPPI_superficial_V1": ["V1_tgt_superficial_deveined_orth", "V1_tgt_superficial_deveined_iso90"],
-            "odss_gPPI_middle_V1": ["V1_tgt_middle_deveined_orth", "V1_tgt_middle_deveined_iso90"],
-            "odss_gPPI_deep_V1": ["V1_tgt_deep_deveined_orth", "V1_tgt_deep_deveined_iso90"],
-            "fgm_gPPI_superficial_V1": ["V1_tgt_superficial_deveined_iso90", "V1_tgt_superficial_deveined_iso0"],
-            "fgm_gPPI_middle_V1": ["V1_tgt_middle_deveined_iso90", "V1_tgt_middle_deveined_iso0"],
-            "fgm_gPPI_deep_V1": ["V1_tgt_deep_deveined_iso90", "V1_tgt_deep_deveined_iso0"],
-            "iso-sur_gPPI_superficial_V1": ["V1_tgt_superficial_deveined_iso0", "V1_tgt_superficial_deveined_sur"],
-            "iso-sur_gPPI_middle_V1": ["V1_tgt_middle_deveined_iso0", "V1_tgt_middle_deveined_sur"],
-            "iso-sur_gPPI_deep_V1": ["V1_tgt_deep_deveined_iso0", "V1_tgt_deep_deveined_sur"]
+            "orth-sur": ["orth", "sur"]
         },
         "colors": [
-            "green", "magenta", "cyan", "black", "coral", "darkorange", "darkmagenta", "darkturquoise",
-            [0.1, 1, 0], [0.1, 0.7, 0], [0.1, 0.5, 0],
-            [1, 0, 1], [0.7, 0, 0.7], [0.5, 0, 0.5],
-            [0.7, 0.7, 0.7], [0.5, 0.5, 0.5], [0.3, 0.3, 0.3],
-            [0.1, 1, 0], [0.1, 0.7, 0], [0.1, 0.5, 0],
-            [1, 0, 1], [0.7, 0, 0.7], [0.5, 0, 0.5],
-            [0.7, 0.7, 0.7], [0.5, 0.5, 0.5], [0.3, 0.3, 0.3]
+            "green", "magenta", "cyan", "black", "coral", "darkorange", "darkmagenta", "darkturquoise"
         ]
     },
     "stat_analyses": {
         "task": [0, 4],
-        "loc": [4, 8],
-        "gPPI": [8]
+        "loc": [4, 8]
     },
     "diff_analyses": {
         "task": {"list": ["odss", "fgm", "dsi", "iso-sur"], "ids": [0, 4]},
-        "loc":  {"list": ["ctr-sur", "ctr-iso0"], "ids": [4, 6]},
-        "gPPI": {
-            "list": [
-                "odss_gPPI_superficial_V23", "odss_gPPI_middle_V23", "odss_gPPI_deep_V23",
-                "fgm_gPPI_superficial_V23",  "fgm_gPPI_middle_V23",  "fgm_gPPI_deep_V23",
-                "iso-sur_gPPI_superficial_V23", "iso-sur_gPPI_middle_V23", "iso-sur_gPPI_deep_V23",
-                "odss_gPPI_superficial_V1", "odss_gPPI_middle_V1", "odss_gPPI_deep_V1",
-                "fgm_gPPI_superficial_V1",  "fgm_gPPI_middle_V1",  "fgm_gPPI_deep_V1",
-                "iso-sur_gPPI_superficial_V1", "iso-sur_gPPI_middle_V1", "iso-sur_gPPI_deep_V1"
-            ],
-            "ids": [7]
-        }
+        "loc":  {"list": ["ctr-sur", "ctr-iso0"], "ids": [4, 6]}
     }
 }

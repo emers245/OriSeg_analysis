@@ -16,6 +16,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from matplotlib.patches import Ellipse
 import pandas as pd
+import seaborn as sns
 
 funcs_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 if funcs_dir not in sys.path:
@@ -100,7 +101,7 @@ def plot_ellipse_qc(all_data, ellipse_df, roiRad, Ndsets_V1, savefigs, figDir, f
                 plt.colorbar(pcm, ax=ax1)
                 ax1.add_patch(ellipse)
                 ax1.patch.set_facecolor('r')
-                ax1.set_title(label + " radius = %.1f$\\sigma$: SD<%.1f Nvox = %d"
+                ax1.set_title(label + " " + hemi + " radius = %.1f$\\sigma$: SD<%.1f Nvox = %d"
                               % (roiRad, roiRad, np.sum(df['scale_xy_dist'] < roiRad)), fontsize=6)
                 ax1.axis('off')
                 ax1.set_aspect('equal')
@@ -116,13 +117,15 @@ def plot_ellipse_qc(all_data, ellipse_df, roiRad, Ndsets_V1, savefigs, figDir, f
                 plt.colorbar(pcm, ax=ax2)
                 ax2.add_patch(ellipse2)
                 ax2.patch.set_facecolor('r')
-                ax2.set_title(label + " localizer: SD<%.1f Nvox = %d"
+                ax2.set_title(label + " " + hemi + " localizer: SD<%.1f Nvox = %d"
                               % (roiRad, np.sum(df['scale_xy_dist'] < roiRad)), fontsize=6)
                 ax2.axis('off')
                 ax2.set_aspect('equal')
 
                 iR += 1
 
+    frad.tight_layout(pad=0.5)
+    floc.tight_layout(pad=0.5)
     if savefigs:
         frad.savefig(os.path.join(figDir, 'xy_map_rad.%s'  % fig_format))
         floc.savefig(os.path.join(figDir, 'xy_map_loc.%s'  % fig_format))
@@ -156,11 +159,11 @@ def plot_pval_histograms(all_data, roiRad, subject_visArea_combinations, savefig
         ax.set_xscale('log')
         p_less_05 = (100 * (roi['loc p-val'] <= 0.05).sum() / len(roi['loc p-val'])
                      if len(roi['loc p-val']) > 0 else 0)
-        ax.set_title(f"{subjID} - {vis_region} loc p-val \n (p < 0.05: {p_less_05:.2f}%)", fontsize=6)
-        ax.set_xlabel("pval")
+        ax.set_title(f"{subjID} - {vis_region} loc p-val \n (p < 0.05: {p_less_05:.2f}%)", fontsize=12)
+        ax.set_xlabel("pval", fontsize=10)
         ax.set_ylim([0, 100])
         ax.set_xlim([minp, maxp])
-        ax.tick_params(axis='x', labelsize=6)
+        ax.tick_params(axis='x', labelsize=10)
     fig_loc.tight_layout(pad=0.5)
 
     # task p-values
@@ -186,11 +189,11 @@ def plot_pval_histograms(all_data, roiRad, subject_visArea_combinations, savefig
         ax.set_xscale('log')
         p_less_05 = (100 * (roi['task p-val'] <= 0.05).sum() / len(roi['task p-val'])
                      if len(roi['task p-val']) > 0 else 0)
-        ax.set_title(f"{subjID} - {vis_region} task p-val \n (p < 0.05: {p_less_05:.2f}%)", fontsize=6)
-        ax.set_xlabel("pval")
+        ax.set_title(f"{subjID} - {vis_region} task p-val \n (p < 0.05: {p_less_05:.2f}%)", fontsize=12)
+        ax.set_xlabel("pval", fontsize=10)
         ax.set_ylim([0, 100])
         ax.set_xlim([minp, maxp])
-        ax.tick_params(axis='x', labelsize=6)
+        ax.tick_params(axis='x', labelsize=10)
     fig_task.tight_layout(pad=0.5)
 
     if savefigs:
@@ -231,68 +234,136 @@ def plot_depth_histograms(all_data, roiRad, nDepths, subject_visArea_combination
 
 
 # ---------------------------------------------------------------------------
+# Depth box-and-whisker plots
+# ---------------------------------------------------------------------------
+
+def plot_depth_boxplots(all_data, nDepths, masks=None,
+                        savefigs=False, figDir=None, fig_format='svg', plottype="box"):
+    """
+    Plot distribution of voxel counts at each depth bin across subjects.
+    """
+    fig_dbox, axes_dbox = plt.subplots(1, 1, figsize=(8, 6))
+    depth_bins = np.linspace(0, 1, nDepths + 1)
+    depth_counts = [[] for _ in range(nDepths)]
+    # Gather voxel counts by depth bin
+    for i, label in enumerate(all_data.keys()):
+        df = all_data[label]
+        if masks is not None and label in masks:
+            mask = masks[label]
+        else:
+            mask = df.index
+        roi = df[mask==1]
+
+        for d_i in range(nDepths):
+            count = roi['d_bin'].value_counts().get(d_i, 0)
+            depth_counts[d_i].append(count)
+    if plottype == "box":
+        axes_dbox.boxplot(depth_counts, positions=np.arange(nDepths), widths=0.6)
+    elif plottype == "violin":
+        sns.violinplot(data=depth_counts, ax=axes_dbox, inner='box', color='lightblue')
+        sns.swarmplot(data=depth_counts, ax=axes_dbox, color='k', size=3)
+    else:
+        raise ValueError("Invalid plottype. Use 'box' or 'violin'.")
+    axes_dbox.set_xticks(np.arange(nDepths))
+    axes_dbox.set_xticklabels([f"{depth_bins[d_i]:.2f}-{depth_bins[d_i+1]:.2f}" for d_i in range(nDepths)],
+                                rotation=45, fontsize=6)
+    axes_dbox.set_xlabel("Depth bins", fontsize=8)
+    axes_dbox.set_ylabel("Voxel count", fontsize=8)
+    axes_dbox.set_title(f"Depth distribution", fontsize=10)
+    fig_dbox.tight_layout(pad=0.5)
+    if savefigs:
+        fig_dbox.savefig(os.path.join(figDir, f'depth_boxplots.{fig_format}'))
+
+
+# ---------------------------------------------------------------------------
 # Deveining diagnostic plots
 # ---------------------------------------------------------------------------
 
 def plot_deveining_qc(all_data, lmnv_dict, nDepths, depth_var='d_norm',
                       deep_pct=10, sd_thresh=2, x_var='x', y_var='y',
-                      savefigs=False, figDir=None, fig_format='svg'):
+                      savefigs=False, figDir=None, fig_format='svg',
+                      vAreas=['V1']):
     depth_groups = {'deep': [0.0, 1/3], 'middle': [1/3, 2/3], 'superficial': [2/3, 1.0]}
     depth_labels = ['superficial', 'middle', 'deep']
-    fsize = 8
+    Ngroups      = len(depth_labels)
+    fsize        = 12
 
-    for iR, vArea in enumerate(['V1', 'V23']):
-        k_i     = 0
+    # Pass 1: collect all ROI records across both vAreas so figures can be
+    # pre-allocated with the correct number of columns.
+    roi_records = []
+    for vArea in vAreas:
         subjIDs = [subj for subj in all_data.keys()
                    if all_data[subj]['Visual Region'].str.contains(vArea).any()]
-        dsets   = []
-        for iH, hemi in enumerate(['lh', 'rh']):
-            dsets = dsets + [
-                subj + hemi for subj in all_data.keys()
-                if ((all_data[subj]['Visual Region'].str.contains(vArea)) &
-                    (all_data[subj]['hemi'].str.contains(hemi))).any()
-            ]
-        Ndsets = len(dsets)
-
-        for iS, label in enumerate(subjIDs):
+        for label in subjIDs:
             df_all = all_data[label]
-
-            for iH, hemi in enumerate(df_all['hemi'].unique()):
-
+            for hemi in df_all['hemi'].unique():
                 if np.sum((df_all['Visual Region'] == vArea) &
                           (df_all['Subregion'] == 'tgt') &
-                          (df_all['hemi'] == hemi)) != 0:
+                          (df_all['hemi'] == hemi)) == 0:
+                    continue
+                df   = df_all[(df_all['Visual Region'] == vArea) &
+                               (df_all['Subregion'] == 'tgt') &
+                               (df_all['hemi'] == hemi)]
+                lmnv = get_lmnv(df, key='stdev_xerrts')
+                mnv  = np.exp(lmnv)
+                z    = df[depth_var]
+                [_, _, deep]          = get_deep_layer_dist(df, depth_var, deep_pct)
+                [mnv_mask, _]         = get_mnv_mask(df, depth_var, deep_pct, sd_thresh)
+                roi_records.append({
+                    'label': label, 'hemi': hemi, 'vArea': vArea,
+                    'df': df, 'lmnv': lmnv, 'mnv': mnv, 'z': z,
+                    'deep': deep, 'mnv_mask': mnv_mask,
+                })
 
-                    df = df_all[(df_all['Visual Region'] == vArea) &
-                                (df_all['Subregion'] == 'tgt') &
-                                (df_all['hemi'] == hemi)]
+    Ndsets  = len(roi_records)
+    col_w   = 2.5
 
-                    lmnv = get_lmnv(df, key='stdev_xerrts')
-                    mnv  = np.exp(lmnv)
-                    z    = df[depth_var]
-                    [deep_mean, deep_std, deep] = get_deep_layer_dist(df, depth_var, deep_pct)
-                    [mnv_mask, lmnv_thresh]     = get_mnv_mask(df, depth_var, deep_pct, sd_thresh)
+    # Pass 2: create 4 figures with proper grids, then fill subplot by subplot.
+    fig_hist,   axes_hist   = plt.subplots(2,          Ndsets,
+                                            figsize=(col_w * Ndsets, 5))
+    fig_dmap,   axes_dmap   = plt.subplots(Ngroups * 2, Ndsets,
+                                            figsize=(col_w * Ndsets, 3 * Ngroups))
+    fig_thresh, axes_thresh = plt.subplots(Ngroups * 2, Ndsets,
+                                            figsize=(col_w * Ndsets, 3 * Ngroups))
+    fig_depth,  axes_depth  = plt.subplots(2,          Ndsets,
+                                            figsize=(col_w * Ndsets, 5))
 
-                    fthresh     = plot_mnv_histograms(lmnv, lmnv[deep], mnv_mask, deep_pct,
-                                                      label, k_i, Ndsets, fsize,
-                                                      pad=0.0, figsize=(15, 3))
-                    dmap        = plot_depth_maps(df, depth_var, depth_groups, depth_labels,
-                                                  x_var, y_var, mnv, k_i, Ndsets, [2, 5],
-                                                  fsize, fname='dmap', pad=0.0)
-                    dmap_thresh = plot_depth_maps(df, depth_var, depth_groups, depth_labels,
-                                                  x_var, y_var, mnv, k_i, Ndsets, [2, 5],
-                                                  fsize, fname='dmap_thresh', mask=mnv_mask, pad=0.0)
-                    fdepth_hist = plot_depth_voxel_loss(z, mnv_mask, nDepths, Ndsets,
-                                                        label, k_i, fsize)
-                    k_i += 1
+    # Ensure axes are always 2-D even when Ndsets == 1
+    axes_hist   = np.atleast_2d(axes_hist)
+    axes_dmap   = np.atleast_2d(axes_dmap)
+    axes_thresh = np.atleast_2d(axes_thresh)
+    axes_depth  = np.atleast_2d(axes_depth)
 
-        if savefigs and figDir is not None:
-            fthresh.savefig(os.path.join(figDir,     'mnv_hist_%s.%s'        % (vArea, fig_format)))
-            dmap.savefig(os.path.join(figDir,         'mnv_depth_map_%s.%s'  % (vArea, fig_format)))
-            dmap_thresh.savefig(os.path.join(figDir,  'mnv_depth_map_thresh_%s.%s' % (vArea, fig_format)))
-            fdepth_hist.savefig(os.path.join(figDir,  'mnv_depth_hist_%s.%s' % (vArea, fig_format)))
+    for k_i, roi in enumerate(roi_records):
+        title = '%s %s %s' % (roi['label'], roi['vArea'], roi['hemi'])
 
-        plt.close('all')
+        plot_mnv_histograms(roi['lmnv'], roi['lmnv'][roi['deep']], roi['mnv_mask'],
+                            deep_pct, title,
+                            axes_hist[0, k_i], axes_hist[1, k_i], fsize)
+
+        scatter_axes = [axes_dmap[2 * d_i,     k_i] for d_i in range(Ngroups)]
+        hist_axes    = [axes_dmap[2 * d_i + 1, k_i] for d_i in range(Ngroups)]
+        plot_depth_maps(roi['df'], depth_var, depth_groups, depth_labels,
+                        x_var, y_var, roi['mnv'], [2, 5], fsize,
+                        scatter_axes, hist_axes)
+
+        scatter_axes_t = [axes_thresh[2 * d_i,     k_i] for d_i in range(Ngroups)]
+        hist_axes_t    = [axes_thresh[2 * d_i + 1, k_i] for d_i in range(Ngroups)]
+        plot_depth_maps(roi['df'], depth_var, depth_groups, depth_labels,
+                        x_var, y_var, roi['mnv'], [2, 5], fsize,
+                        scatter_axes_t, hist_axes_t, mask=roi['mnv_mask'])
+
+        plot_depth_voxel_loss(roi['z'], roi['mnv_mask'], nDepths, title,
+                               axes_depth[0, k_i], axes_depth[1, k_i], fsize)
+
+    for fig in [fig_hist, fig_dmap, fig_thresh, fig_depth]:
+        fig.tight_layout()
+
+    if savefigs and figDir is not None:
+        fig_hist.savefig(  os.path.join(figDir, 'mnv_hist.%s'            % fig_format))
+        fig_dmap.savefig(  os.path.join(figDir, 'mnv_depth_map.%s'       % fig_format))
+        fig_thresh.savefig(os.path.join(figDir, 'mnv_depth_map_thresh.%s' % fig_format))
+        fig_depth.savefig( os.path.join(figDir, 'mnv_depth_hist.%s'      % fig_format))
 
 
 # ---------------------------------------------------------------------------
@@ -301,15 +372,14 @@ def plot_deveining_qc(all_data, lmnv_dict, nDepths, depth_var='d_norm',
 
 def plot_mnv_threshold_comparison(all_data, lmnv_dict, depth_var='d_norm',
                                    deep_pct=10, savefigs=False, figDir=None,
-                                   fig_format='svg'):
+                                   fig_format='svg', vAreas=['V1']):
     spreadF = 2
-    for iR, vArea in enumerate(['V1', 'V23']):
+    for iR, vArea in enumerate(vAreas):
         k_i     = 0
         subjIDs = [subj for subj in all_data.keys()
                    if all_data[subj]['Visual Region'].str.contains(vArea).any()]
-        Nsubj   = len(subjIDs)
         f       = plt.figure()
-        dsets   = [subj + h for subj in subjIDs for h in ['lh', 'rh']]
+        dsets   = []
 
         for iS, label in enumerate(subjIDs):
             df_all = all_data[label]
@@ -347,9 +417,10 @@ def plot_mnv_threshold_comparison(all_data, lmnv_dict, depth_var='d_norm',
                                spreadF*k_i - 0.5, spreadF*(k_i+0.2) + 0.5, color='r')
                     plt.title(vArea)
 
-                k_i += 1
+                    dsets.append(label + hemi)
+                    k_i += 1
 
-        plt.xticks(np.arange(0, 2*spreadF*Nsubj, spreadF), dsets, rotation=15, fontsize=6)
+        plt.xticks(np.arange(0, spreadF*k_i, spreadF), dsets, rotation=30, fontsize=6)
         plt.ylabel("log(MNV)")
 
         if savefigs and figDir is not None:
@@ -360,10 +431,10 @@ def plot_mnv_threshold_comparison(all_data, lmnv_dict, depth_var='d_norm',
 # Voxel count across depth and radius after masking
 # ---------------------------------------------------------------------------
 
-def plot_voxel_count_depth_radius(all_data, nDepths_rings, savefigs, figDir, fig_format):
+def plot_voxel_count_depth_radius(all_data, nDepths_rings, savefigs, figDir, fig_format, figsize=(10, 5)):
     dbins = np.linspace(0, 1, nDepths_rings + 1)
     for subj in all_data.keys():
-        fig, ax = plt.subplots(nDepths_rings, 3, figsize=(10, 12))
+        fig, ax = plt.subplots(nDepths_rings, 3, figsize=figsize)
         if nDepths_rings == 1:
             ax = np.atleast_2d(ax)
         fig.suptitle(f"{subj}")
@@ -380,7 +451,7 @@ def plot_voxel_count_depth_radius(all_data, nDepths_rings, savefigs, figDir, fig
                 ax[ax_i, 0].set_xlabel("Radial Distance ($\\sigma$)")
             ax[ax_i, 0].set_ylabel("Voxel Count")
             ax[ax_i, 0].set_title(f"Depth bin = {d_i}")
-            ax[ax_i, 0].set_ylim([0, 500])
+            ax[ax_i, 0].set_ylim([0, 1500])
             ax[ax_i, 0].set_xlim([0, np.ceil(max_dist)])
             ax[ax_i, 0].plot([0, np.ceil(max_dist)], [10, 10], '--r', label='10 voxels')
             ax[ax_i, 0].legend()
@@ -445,17 +516,20 @@ def plot_voxel_count_depth_radius(all_data, nDepths_rings, savefigs, figDir, fig
 # Total % BOLD change per subject
 # ---------------------------------------------------------------------------
 
-def plot_bold_per_subject(all_data, statDetails, savefigs, figDir, fig_format):
-    import seaborn as sns
+def plot_bold_per_subject(all_data, statDetails, savefigs, figDir, fig_format, plot_V23=False):
 
     for subj in all_data.keys():
         df     = all_data[subj]
         df_tgt = df[(df['Visual Region'] == 'V1') & (df['in_tgt'] == True) &
                     (df['sig'] == True) & (df['no_vein'] == True)]
-        df_V23 = df[(df['Visual Region'] == 'V23') & (df['sig'] == True) &
-                    (df['no_vein'] == True)]
-
-        fig, ax = plt.subplots(1, 2, figsize=(10, 5))
+        if plot_V23:
+            df_V23 = df[(df['Visual Region'] == 'V23') & (df['sig'] == True) &
+                        (df['no_vein'] == True)]
+        if plot_V23:
+            fig, ax = plt.subplots(1, 2, figsize=(10, 5))
+        else:
+            fig, ax = plt.subplots(1, 1, figsize=(5, 5))
+            ax = [ax] #make subscriptable
         fig.suptitle(f"{subj}")
 
         if not df_tgt.empty:
@@ -471,7 +545,7 @@ def plot_bold_per_subject(all_data, statDetails, savefigs, figDir, fig_format):
             ax[0].set_ylabel('Average BOLD Response')
             ax[0].set_xticklabels(conditions, rotation=45, ha='right')
 
-        if not df_V23.empty:
+        if plot_V23 and not df_V23.empty:
             conditions_V23 = [
                 'V23_superficial_deveined_orth', 'V23_middle_deveined_orth', 'V23_deep_deveined_orth',
                 'V23_superficial_deveined_iso90', 'V23_middle_deveined_iso90', 'V23_deep_deveined_iso90',
@@ -523,8 +597,7 @@ def _annotate_swarm_by_facecolor(ax, start_collection_idx, palette, x_offset=0.0
                     fontsize=fontsize, va="center")
 
 
-def plot_bold_summary(all_data, statDetails, savefigs, figDir, fig_format):
-    import seaborn as sns
+def plot_bold_summary(all_data, statDetails, savefigs, figDir, fig_format, statsDir, plot_V23=False):
 
     V1_means  = {}
     V23_means = {}
@@ -533,14 +606,15 @@ def plot_bold_summary(all_data, statDetails, savefigs, figDir, fig_format):
         df     = all_data[subj]
         df_tgt = df[(df['Visual Region'] == 'V1') & (df['in_tgt'] == True) &
                     (df['sig'] == True) & (df['no_vein'] == True)]
-        df_V23 = df[(df['Visual Region'] == 'V23') & (df['sig'] == True) &
-                    (df['no_vein'] == True)]
+        if plot_V23:
+            df_V23 = df[(df['Visual Region'] == 'V23') & (df['sig'] == True) &
+                        (df['no_vein'] == True)]
 
         if not df_tgt.empty:
             conditions = ['sur', 'iso90', 'orth', 'iso0']
             V1_means[subj] = dict(zip(conditions, [df_tgt[c].mean() for c in conditions]))
 
-        if not df_V23.empty:
+        if plot_V23 and not df_V23.empty:
             concatenated_conditions = ['V23_deveined_orth', 'V23_deveined_iso90',
                                        'V23_deveined_iso0', 'V23_deveined_sur']
             df_V23_concat = pd.DataFrame()
@@ -553,7 +627,12 @@ def plot_bold_summary(all_data, statDetails, savefigs, figDir, fig_format):
             V23_means[subj] = dict(zip(concatenated_conditions,
                                        [df_V23_concat[c].mean() for c in concatenated_conditions]))
 
-    fig, ax = plt.subplots(1, 2, figsize=(12, 6))
+    if plot_V23:
+        fig, ax = plt.subplots(1, 2, figsize=(12, 6))
+    else:
+        fig, ax = plt.subplots(1, 1, figsize=(6, 6))
+        ax = [ax]  # make subscriptable
+    fig.suptitle("Average BOLD Response Across Subjects")
 
     if V1_means:
         V1_df   = pd.DataFrame(V1_means).T
@@ -598,7 +677,7 @@ def plot_bold_summary(all_data, statDetails, savefigs, figDir, fig_format):
         print("\n")
         print(zscored)
         csv_filename = f"{region}_zscored_means.csv"
-        csv_filepath = os.path.join(figDir, 'stats', csv_filename)
+        csv_filepath = os.path.join(statsDir, 'QC', csv_filename)
         zscored.to_csv(csv_filepath, index_label='Subject')
         print(f"Z-scored means saved to '{csv_filepath}'")
 
@@ -630,12 +709,12 @@ def plot_individual_condition_profiles(depthProfiles, avgDepthProfiles,
                                         stat_analyses, diff_analyses,
                                         use_decon, fig_size,
                                         savefigs, figDir, fig_format,
-                                        fcolor, lcolor):
+                                        fcolor, lcolor, roi_types):
     cm = 1/2.54
     dx = 4.
     dy = 0.7
 
-    for roi_type in ['in_tgt', 'in_V23']:
+    for roi_type in roi_types:
         for analysis in ['task', 'loc']:
             STATS = _get_stats(statDetails, diffDetails, stat_analyses, diff_analyses, analysis)
             for iStat, stat in enumerate(STATS['labels']):
@@ -698,12 +777,12 @@ def plot_individual_diff_profiles(diffProfiles, avgDepthDiffs,
                                    stat_analyses, diff_analyses,
                                    use_decon, fig_size, pthresh,
                                    savefigs, figDir, fig_format,
-                                   fcolor, lcolor):
+                                   fcolor, lcolor, roi_types):
     cm = 1/2.54
     dx = 4.
     dy = 0.7
 
-    for roi_type in ['in_tgt', 'in_V23']:
+    for roi_type in roi_types:
         for analysis in ['task', 'loc']:
             STATS, DIFFS = _get_stats_diffs(statDetails, diffDetails,
                                              stat_analyses, diff_analyses, analysis)
@@ -724,9 +803,9 @@ def plot_individual_diff_profiles(diffProfiles, avgDepthDiffs,
 
                 ylim = [-0.02, 1.02]
                 if analysis == 'task':
-                    xlim = [-0.6, 1.8] if fig_size == "small" else [-1.5, 5.0]
+                    xlim = [-1.0, 5.0]
                 elif analysis == 'loc':
-                    xlim = [-1.5, 2]   if fig_size == "small" else [-1.5, 5.0]
+                    xlim = [-1.0, 5.0]
                 Ntext = [4, 0.05]
 
                 plot_avg_diff_profile(
