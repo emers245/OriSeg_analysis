@@ -6,6 +6,10 @@ This repository stores analysis code for Emerson, Navarro, & Olman (in press).
 If you use the code in this repository, please cite:
 Emerson, J. H., Navarro, K., & Olman, C. A. Orientation-tuned surround suppression exhibits a unique laminar signature in human primary visual cortex. Proc. Natl. Acad. Sci. U.S.A. (in press)
 
+## Raw Data
+
+The raw fMRI datasets are available on OpenNeuro at: https://openneuro.org/datasets/ds007862
+
 ## Set up
 *Requires anaconda installation
 
