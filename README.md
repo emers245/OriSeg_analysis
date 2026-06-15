@@ -4,7 +4,7 @@ This repository stores analysis code for Emerson, Navarro, & Olman (in press).
 ## Citation
 
 If you use the code in this repository, please cite:
-Emerson, J. H., Navarro, K., & Olman, C. A. Orientation-tuned surround suppression exhibits a unique laminar signature in human primary visual cortex. Proc. Natl. Acad. Sci. U.S.A. (in press)
+Emerson, J. H., Navarro, K., & Olman, C. A. Orientation-tuned surround suppression exhibits a unique laminar signature in the human primary visual cortex. Proc. Natl. Acad. Sci. U.S.A. (in press)
 
 ## Raw Data
 
