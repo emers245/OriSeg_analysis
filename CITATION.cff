@@ -1,0 +1,62 @@
+cff-version: 1.2.0
+title: OriSeg_analysis
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Joseph
+    family-names: Emerson
+    email: emers245@umn.edu
+    orcid: 'https://orcid.org/0000-0002-4874-9673'
+    affiliation: University of Minnesota
+  - given-names: Karen
+    family-names: Navarro
+    affiliation: University of Minnesota
+  - given-names: Cheryl
+    family-names: Olman
+    affiliation: University of Minnesota
+identifiers:
+  - type: doi
+    value: 10.64898/2025.12.12.694066v1
+    description: The bioRxiv preprint of the paper.
+repository-code: 'https://github.com/emers245/OriSeg_analysis'
+abstract: >-
+  Spatial context modifies visual perception by enhancing
+  novel and salient features over spatially redundant
+  features in the underlying neural code of the primary
+  visual cortex (V1). Although multiple intracortical
+  pathways contribute to contextual modulation, their
+  specific contributions to different types of contextual
+  modulation are not fully understood. Leveraging the
+  distinct laminar connectivity patterns of feedforward,
+  feedback, and lateral pathways, we used
+  ultra-high-resolution fMRI (7T T2*-weighted, 0.6 mm
+  isotropic resolution) to infer their relative
+  contributions to contextual modulation in V1 by analyzing
+  blood-oxygenation-level-dependent (BOLD) signal across
+  cortical depth. Participants viewed sine-wave grating
+  disks embedded in large surround gratings. Segmentation
+  cues were introduced or removed by manipulating the
+  relative phase and orientation of the surround gratings,
+  yielding three contextual conditions and a surround-only
+  condition to measure the effects of context in the absence
+  of feedforward input. Our analysis isolated the effects of
+  orientation-tuned surround suppression (OTSS) from
+  orientation independent border-induced modulation (BIM).
+  The results show that BOLD laminar profiles differ by
+  modulation type: OTSS was absent from deep layers, whereas
+  BIM was more broadly distributed. We also find that voxels
+  at all depths are driven by spatial context in the absence
+  of feedforward input, which accords with the finding of
+  contextually driven neural responses in mammalian V1.
+  These laminar differences likely reflect different
+  proportional contributions of feedback from higher-order
+  visual areas and long-range lateral connections within V1.
+  Our findings help to explicate the contributions of
+  recurrent processing to visual contextual modulation and
+  its impacts on laminar-dependent BOLD fMRI.
+license: CC0-1.0
+commit: Initial Release
+version: 1.0.0
+date-released: '2026-06-15'
