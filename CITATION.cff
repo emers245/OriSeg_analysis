@@ -23,6 +23,9 @@ identifiers:
   - type: doi
     value: 10.18112/openneuro.ds007862.v1.0.1
     description: The raw fMRI dataset.
+  - type: doi
+    value: 10.5281/zenodo.20709504
+    description: Analysis code release v1.0.0.
 repository-code: 'https://github.com/emers245/OriSeg_analysis'
 abstract: >-
   Spatial context modifies visual perception by enhancing
